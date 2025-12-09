@@ -23,10 +23,10 @@ if (aplayer) {
   const avatar = document.querySelector(".singer-detail .inner-avatar");
 
   ap.on("play", function () {
-    avatar.style.animationiconPlayState = "running";
+    avatar.style.animationPlayState = "running";
   });
 
   ap.on("pause", function () {
-    avatar.style.animationiconPlayState = "paused";
+    avatar.style.animationPlayState = "paused";
   });
 }
