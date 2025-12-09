@@ -1,3 +1,4 @@
+// APlayer
 const aplayer = document.querySelector("#aplayer");
 
 if (aplayer) {
@@ -30,3 +31,33 @@ if (aplayer) {
     avatar.style.animationPlayState = "paused";
   });
 }
+// End APlayer
+
+//Button Like
+const buttonLike = document.querySelector("[button-like]");
+if(buttonLike) {
+  buttonLike.addEventListener("click", () => {
+    const id = buttonLike.getAttribute("button-like");
+
+    const isActive = buttonLike.classList.contains("active");
+
+    const typeLike = isActive ? "dislike" : "like";
+
+    const link = `/songs/like/${typeLike}/${id}`;
+
+    const option = {
+      method: "PATCH",
+    }
+    
+    fetch(link, option)
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == 200) {
+          const elementNumber = buttonLike.querySelector("span");
+          elementNumber.innerHTML = `${data.like} thích`;
+          buttonLike.classList.toggle("active");
+        }
+      })
+  })
+}
+// End Button Like
