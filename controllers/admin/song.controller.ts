@@ -38,6 +38,14 @@ export const create = async (req: Request, res: Response) => {
 
 // [POST] /admin/songs/create
 export const createPost = async (req: Request, res: Response) => {
+  if (req.body.avatar) {
+    req.body.avatar = req.body.avatar[0];
+  }
+
+  if (req.body.audio) {
+    req.body.audio = req.body.audio[0];
+  }
+
   const dataSong = {
     title: req.body.title,
     topicId: req.body.topicId,
@@ -45,6 +53,7 @@ export const createPost = async (req: Request, res: Response) => {
     description: req.body.description,
     status: req.body.status,
     avatar: req.body.avatar,
+    audio: req.body.audio,
   };
 
   const song = new Song(dataSong);
