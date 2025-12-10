@@ -30,6 +30,21 @@ if (aplayer) {
   ap.on("pause", function () {
     avatar.style.animationPlayState = "paused";
   });
+
+  ap.on("ended", function () {
+    fetch(`/songs/listen/${dataSong._id}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code == 200) {
+          const innerListen = document.querySelector(
+            ".singer-detail .inner-listen span"
+          );
+          innerListen.innerHTML = `${data.listen} lượt nghe`;
+        }
+      });
+  });
 }
 // End APlayer
 
@@ -89,21 +104,22 @@ if (listButtonFavorite.length > 0) {
 
 // Search Suggest
 const boxSearch = document.querySelector(".box-search");
-if(boxSearch) {
+if (boxSearch) {
   const input = boxSearch.querySelector("input[name='keyword']");
   input.addEventListener("keyup", () => {
     const keyword = input.value;
-    
+
     fetch(`/search/suggest?keyword=${keyword}`)
-      .then(res => res.json())
-      .then(data => {
-        if(data.code == 200) {
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code == 200) {
           const songs = data.songs;
           const innerSuggest = boxSearch.querySelector(".inner-suggest");
           const innerList = boxSearch.querySelector(".inner-list");
-          
-          if(songs.length > 0) {
-            const htmlsArray = songs.map(item => `
+
+          if (songs.length > 0) {
+            const htmlsArray = songs.map(
+              (item) => `
               <a class="inner-item" href="/songs/detail/${item.slug}">
                 <div class="inner-image">
                   <img src="${item.avatar}">
@@ -115,7 +131,8 @@ if(boxSearch) {
                   </div>
                   </div>
               </a>
-            `);
+            `
+            );
             innerList.innerHTML = htmlsArray.join("");
             innerSuggest.classList.add("show");
           } else {
@@ -123,7 +140,7 @@ if(boxSearch) {
             innerSuggest.classList.remove("show");
           }
         }
-      })
+      });
   });
 }
 // End Search Suggest
