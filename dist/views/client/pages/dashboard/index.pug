@@ -1,0 +1,51 @@
+﻿extends ../../layouts/default.pug
+
+block main
+  .client-dashboard
+    .container
+      .dashboard-hero
+        .inner-content
+          p.inner-eyebrow Music App
+          h1.inner-title Dashboard
+          p.inner-desc Truy cập nhanh các chức năng nghe nhạc, xem chủ đề và danh sách bài hát yêu thích của bạn.
+        .inner-actions
+          a.dashboard-action.dashboard-action-primary(href="/")
+            span.inner-icon
+              i.fa-solid.fa-house
+            span.inner-text Trang chủ
+          a.dashboard-action(href="/topics")
+            span.inner-icon
+              i.fa-solid.fa-music
+            span.inner-text Chủ đề
+          a.dashboard-action(href="/favorite-songs")
+            span.inner-icon
+              i.fa-solid.fa-heart
+            span.inner-text Yêu thích
+
+      .dashboard-grid
+        a.dashboard-card(href="/topics")
+          .inner-icon
+            i.fa-solid.fa-layer-group
+          .inner-info
+            h2 Chủ đề bài hát
+            p Khám phá các nhóm nhạc theo chủ đề và mở nhanh danh sách bài hát tương ứng.
+          .inner-arrow
+            i.fa-solid.fa-arrow-right
+
+        a.dashboard-card(href="/favorite-songs")
+          .inner-icon
+            i.fa-solid.fa-heart-circle-check
+          .inner-info
+            h2 Bài hát yêu thích
+            p Xem lại những bài hát bạn đã đánh dấu yêu thích trong quá trình nghe nhạc.
+          .inner-arrow
+            i.fa-solid.fa-arrow-right
+
+        a.dashboard-card(href="/search/result")
+          .inner-icon
+            i.fa-solid.fa-magnifying-glass
+          .inner-info
+            h2 Tìm kiếm bài hát
+            p Nhập từ khóa trên thanh tìm kiếm để tìm nhanh bài hát hoặc ca sĩ bạn quan tâm.
+          .inner-arrow
+            i.fa-solid.fa-arrow-right

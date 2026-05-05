@@ -10,7 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET,
 });
 
-let streamUpload = (buffer) => {
+let streamUpload = (buffer: Buffer): Promise<{ url: string }> => {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
       {
@@ -18,7 +18,7 @@ let streamUpload = (buffer) => {
       },
       (error, result) => {
         if (result) {
-          resolve(result);
+          resolve(result as { url: string });
         } else {
           reject(error);
         }
@@ -30,6 +30,6 @@ let streamUpload = (buffer) => {
 };
 
 export const uploadToCloudinary = async (buffer: any) => {
-  let result = (await streamUpload(buffer)) || "";
-  return result["url"];
+  const result = await streamUpload(buffer);
+  return result.url;
 };

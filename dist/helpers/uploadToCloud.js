@@ -38,7 +38,7 @@ let streamUpload = (buffer) => {
     });
 };
 const uploadToCloudinary = (buffer) => __awaiter(void 0, void 0, void 0, function* () {
-    let result = (yield streamUpload(buffer)) || "";
-    return result["url"];
+    const result = yield streamUpload(buffer);
+    return result.url;
 });
 exports.uploadToCloudinary = uploadToCloudinary;

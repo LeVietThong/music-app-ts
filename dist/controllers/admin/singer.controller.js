@@ -12,79 +12,79 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTopic = exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
-const topic_model_1 = __importDefault(require("../../models/topic.model"));
+exports.deleteSinger = exports.editPatch = exports.edit = exports.createPost = exports.create = exports.index = void 0;
+const singer_model_1 = __importDefault(require("../../models/singer.model"));
 const system_1 = require("../../config/system");
 const convertToSlug_1 = require("../../helpers/convertToSlug");
 const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const topics = yield topic_model_1.default.find({
-        deleted: false
+    const singers = yield singer_model_1.default.find({
+        deleted: false,
     });
-    res.render("admin/pages/topics/index", {
-        pageTitle: "Quản lý chủ đề",
-        topics: topics
+    res.render("admin/pages/singers/index", {
+        pageTitle: "Quản lý ca sĩ",
+        singers: singers,
     });
 });
 exports.index = index;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.render("admin/pages/topics/create", {
-        pageTitle: "Thêm mới chủ đề",
+    res.render("admin/pages/singers/create", {
+        pageTitle: "Thêm mới ca sĩ",
     });
 });
 exports.create = create;
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const dataTopic = {
-        title: req.body.title,
+    const dataSinger = {
+        fullName: req.body.fullName,
         avatar: req.body.avatar,
         status: req.body.status,
-        slug: (0, convertToSlug_1.convertToSlug)(req.body.title),
+        slug: (0, convertToSlug_1.convertToSlug)(req.body.fullName),
     };
-    const topic = new topic_model_1.default(dataTopic);
-    yield topic.save();
-    res.redirect(`/${system_1.systemConfig.prefixAdmin}/topics`);
+    const singer = new singer_model_1.default(dataSinger);
+    yield singer.save();
+    res.redirect(`/${system_1.systemConfig.prefixAdmin}/singers`);
 });
 exports.createPost = createPost;
 const edit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const topic = yield topic_model_1.default.findOne({
+    const singer = yield singer_model_1.default.findOne({
         _id: id,
         deleted: false,
     });
-    res.render("admin/pages/topics/edit", {
-        pageTitle: "Chỉnh sửa chủ đề",
-        topic: topic,
+    res.render("admin/pages/singers/edit", {
+        pageTitle: "Chỉnh sửa ca sĩ",
+        singer: singer,
     });
 });
 exports.edit = edit;
 const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const dataTopic = {
-        title: req.body.title,
+    const dataSinger = {
+        fullName: req.body.fullName,
         status: req.body.status,
-        slug: (0, convertToSlug_1.convertToSlug)(req.body.title),
+        slug: (0, convertToSlug_1.convertToSlug)(req.body.fullName),
     };
     if (req.body.avatar) {
-        dataTopic.avatar = req.body.avatar;
+        dataSinger.avatar = req.body.avatar;
     }
-    yield topic_model_1.default.updateOne({
+    yield singer_model_1.default.updateOne({
         _id: id,
         deleted: false,
-    }, dataTopic);
-    res.redirect(`/${system_1.systemConfig.prefixAdmin}/topics`);
+    }, dataSinger);
+    res.redirect(`/${system_1.systemConfig.prefixAdmin}/singers`);
 });
 exports.editPatch = editPatch;
-const deleteTopic = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteSinger = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    yield topic_model_1.default.updateOne({
+    yield singer_model_1.default.updateOne({
         _id: id,
         deleted: false,
     }, {
         deleted: true,
-        deleteAt: new Date(),
+        deletedAt: new Date(),
     });
     res.json({
         code: 200,
-        message: "Xóa chủ đề thành công",
+        message: "Xóa ca sĩ thành công",
     });
 });
-exports.deleteTopic = deleteTopic;
+exports.deleteSinger = deleteSinger;

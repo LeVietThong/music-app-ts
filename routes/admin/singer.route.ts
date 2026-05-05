@@ -3,7 +3,7 @@ import multer from "multer";
 const router: Router = Router();
 const upload = multer();
 
-import * as controller from "../../controllers/admin/topic.controller";
+import * as controller from "../../controllers/admin/singer.controller";
 import * as uploadCloud from "../../middlewares/admin/uploadCloud.middleware";
 
 router.get("/", controller.index);
@@ -26,6 +26,6 @@ router.patch(
   controller.editPatch
 );
 
-router.delete("/delete/:id", controller.deleteTopic);
+router.delete("/delete/:id", controller.deleteSinger);
 
-export const topicRoutes: Router = router;
+export const singerRoutes: Router = router;
